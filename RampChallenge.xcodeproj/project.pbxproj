@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		7072A6A22C403A83007C1FF3 /* RampChallenge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RampChallenge; sourceTree = BUILT_PRODUCTS_DIR; };
 		7072A6A52C403A83007C1FF3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		7072A6AC2C405078007C1FF3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +42,7 @@
 		7072A6992C403A83007C1FF3 = {
 			isa = PBXGroup;
 			children = (
+				7072A6AC2C405078007C1FF3 /* README.md */,
 				7072A6A42C403A83007C1FF3 /* RampChallenge */,
 				7072A6A32C403A83007C1FF3 /* Products */,
 			);

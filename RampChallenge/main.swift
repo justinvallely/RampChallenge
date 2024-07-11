@@ -52,11 +52,21 @@ func captureTheFlag(url: URL) {
         } else if let data = data {
             print("Data received: \(data)")
             guard let dataString = String(data: data, encoding: .utf8) else { print("Error encoding flag data"); exit(1) }
-            print("Flag 👉 " + "\(dataString)")
-            exit(0)
+            displayFancy(dataString)
         }
     }
     task.resume()
+}
+
+func displayFancy(_ flag: String) {
+    for (index, _) in flag.enumerated() {
+        sleep(1)
+        print("Flag 👉 " + flag.prefix(index + 1), terminator: "\r")
+
+        if index == flag.count - 1 {
+            exit(0)
+        }
+    }
 }
 
 getChallengeData() { result in

@@ -4,12 +4,17 @@ enum ChallengeError: Error {
     case encoding
 }
 
+func showLoadingIndicator() {
+    print("Loading...", terminator: "\r")
+}
+
 func getChallengeData(completion: @escaping (Result<String, Error>) -> Void) {
     guard let url = URL(string: "https://tns4lpgmziiypnxxzel5ss5nyu0nftol.lambda-url.us-east-1.on.aws/challenge") else { return }
 
     let session = URLSession.shared
     let request = URLRequest(url: url)
 
+    showLoadingIndicator()
     let task = session.dataTask(with: request) { data, URLResponse, error in
         if let error = error {
             completion(.failure(error))
@@ -39,6 +44,7 @@ func captureTheFlag(url: URL) {
     let session = URLSession.shared
     let request = URLRequest(url: url)
 
+    showLoadingIndicator()
     let task = session.dataTask(with: request) { data, URLResponse, error in
         if let error = error {
             print("Error: \(error)")

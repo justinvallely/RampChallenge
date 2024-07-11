@@ -19,7 +19,7 @@ Pattern of the DOM tree for each valid character of the URL
 <code data-class="23*">
   <div data-tag="*93">
     <span data-id="*21*">
-      <i class="char" value="VALID_CHARACTER"></i>
+      <i class="ramp char" value="VALID_CHARACTER"></i>
     </span>
   </div>
 </code>

@@ -1,15 +1,10 @@
-//
-//  main.swift
-//  RampChallenge
-//
-//  Created by Justin Vallely on 7/11/24.
-//
-
 import Foundation
 
-print("Hello, World!")
+enum ChallengeError: Error {
+    case encoding
+}
 
-func getChallengeData() {
+func getChallengeData(completion: @escaping (Result<String, Error>) -> Void) {
     guard let url = URL(string: "https://tns4lpgmziiypnxxzel5ss5nyu0nftol.lambda-url.us-east-1.on.aws/challenge") else { return }
 
     let session = URLSession.shared
@@ -17,19 +12,16 @@ func getChallengeData() {
 
     let task = session.dataTask(with: request) { data, URLResponse, error in
         if let error = error {
-            print("Error: \(error.localizedDescription)")
-            exit(1)
+            completion(.failure(error))
         } else if let data = data {
             print("Data received: \(data)")
-            guard let dataString = String(data: data, encoding: .utf8) else { exit(2) }
-            print("👉 " + "dataString:\n\(dataString)")
-            exit(0)
+            guard let dataString = String(data: data, encoding: .utf8) else { return completion(.failure(ChallengeError.encoding)) }
+            completion(.success(dataString))
         }
     }
     task.resume()
 }
 
-getChallengeData()
 func parseHiddenUrl(from html: String) -> String {
     let characterSearch = /(<code class="ramp").*?<div class="ramp".*?<span class="ramp".*?<i class="ramp char" value="(?<character>.{1})/
 
@@ -43,5 +35,16 @@ func parseHiddenUrl(from html: String) -> String {
     return combinedString
 }
 
+getChallengeData() { result in
+    switch result {
+    case .success(let html):
+        let url = parseHiddenUrl(from: html)
+        print("Hidden URL:" + "\(url)")
+        exit(0)
+    case .failure(let error):
+        print("Error: \(error)")
+        exit(1)
+    }
+}
 
 RunLoop.current.run()

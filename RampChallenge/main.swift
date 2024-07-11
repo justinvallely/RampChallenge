@@ -30,5 +30,18 @@ func getChallengeData() {
 }
 
 getChallengeData()
+func parseHiddenUrl(from html: String) -> String {
+    let characterSearch = /(<code class="ramp").*?<div class="ramp".*?<span class="ramp".*?<i class="ramp char" value="(?<character>.{1})/
+
+    var combinedString: String = ""
+
+    let results = html.matches(of: characterSearch)
+    for result in results {
+        combinedString += result.character
+    }
+
+    return combinedString
+}
+
 
 RunLoop.current.run()
